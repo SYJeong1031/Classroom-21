@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync,readFileSync,rmSync} from 'node:fs';
+import {mkdtempSync,readFileSync,rmSync,readdirSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {spawnSync} from 'node:child_process';
@@ -15,7 +15,9 @@ function setup(t) {
     if(p.status!==0)throw new Error(p.stderr);
     return JSON.parse(p.stdout);
   };
-  bridge({schema:readFileSync(new URL('../migrations/0001_initial.sql',import.meta.url),'utf8')});
+  for (const file of readdirSync(new URL('../migrations/',import.meta.url)).filter(f=>f.endsWith('.sql')).sort()) {
+    bridge({schema:'BEGIN;\n'+readFileSync(new URL('../migrations/'+file,import.meta.url),'utf8')+'\nCOMMIT;'});
+  }
   const env={ALLOWED_ORIGIN:origin,ADMIN_PASSWORD:'test-admin-password',SESSION_SECRET:'a'.repeat(48),API_LIMITER:{limit:async()=>({success:true})},LOGIN_LIMITER:{limit:async()=>({success:true})},DB:{prepare(sql){return{sql,args:[],bind(...args){return{sql,args};}};},async batch(statements){queries+=statements.length;return bridge({statements});}}};
   const call=async(path,{method='GET',body,token,requestOrigin=origin}={})=>{
     const response=await worker.fetch(new Request(`https://api.example${path}`,{method,headers:{Origin:requestOrigin,...(body?{'Content-Type':'application/json'}:{}),...(token?{Authorization:`Bearer ${token}`}:{})},...(body?{body:JSON.stringify(body)}:{})}),env);
@@ -74,4 +76,16 @@ test('snapshot bounds history to 50, retains all-time totals, uses indexes',asyn
   assert.equal(result.data.total,80);assert.equal(result.data.entries.length,50);assert.equal(result.data.entries[0].note,'79');
   const plans=bridge({statements:[{sql:'EXPLAIN QUERY PLAN SELECT id,note,date FROM records WHERE student_id = ? AND cancelled = 0 ORDER BY seq DESC LIMIT 50',args:['2101']}]});
   assert.match(JSON.stringify(plans),/records_student_seq/);
+});
+
+test('new student 2128 can read and administrator can add/cancel; 2129 rejected',async t=>{
+  const {call,login}=setup(t);
+  const student=await call('/api/login',{method:'POST',body:{role:'student',id:'2128'}});
+  assert.equal(student.status,200);assert.equal(student.data.snapshot.total,0);
+  const {data:{token}}=await login();const requestId=crypto.randomUUID();
+  const added=await call('/api/students/2128/records',{method:'POST',token,body:{requestId,note:'신규 학생 확인'}});
+  assert.equal(added.status,200);assert.equal(added.data.total,1);
+  const cancelled=await call('/api/students/2128/records/'+requestId,{method:'DELETE',token});
+  assert.equal(cancelled.status,200);assert.equal(cancelled.data.total,0);
+  assert.equal((await call('/api/login',{method:'POST',body:{role:'student',id:'2129'}})).status,400);
 });

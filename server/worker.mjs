@@ -1,5 +1,5 @@
 const enc = new TextEncoder();
-const validId = id => /^21\d{2}$/.test(id) && Number(id) >= 2101 && Number(id) <= 2127;
+const validId = id => /^21\d{2}$/.test(id) && Number(id) >= 2101 && Number(id) <= 2128;
 const b64 = bytes => btoa(String.fromCharCode(...new Uint8Array(bytes))).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 const unb64 = text => Uint8Array.from(atob(text.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - text.length % 4) % 4)), c => c.charCodeAt(0));
 const fail = (status, message) => { throw Object.assign(new Error(message), { status }); };
