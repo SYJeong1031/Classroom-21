@@ -1,0 +1,4 @@
+# 실제 파일 이름은 .dev.vars. Git에 올리지 마세요.
+# 로컬 개발 시 wrangler.jsonc ALLOWED_ORIGIN을 http://localhost:8000 으로 변경합니다.
+ADMIN_PASSWORD="REPLACE_WITH_A_STRONG_PASSWORD"
+SESSION_SECRET="REPLACE_WITH_AT_LEAST_32_RANDOM_CHARACTERS"

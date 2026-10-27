@@ -1,0 +1,43 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "classroom-21-api",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-27",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGIN": ""
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "classroom-21",
+      "database_id": "c0aacd37-942e-4193-a472-d4269d2c770e",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "API_LIMITER",
+      "namespace_id": "2101",
+      "simple": {
+        "limit": 120,
+        "period": 60
+      }
+    },
+    {
+      "name": "LOGIN_LIMITER",
+      "namespace_id": "2102",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
+  ],
+  "assets": {
+    "directory": "../public",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  }
+}

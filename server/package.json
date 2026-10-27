@@ -1,0 +1,13 @@
+{
+  "name": "classroom-21-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node prepare-assets.mjs && wrangler dev",
+    "deploy": "node prepare-assets.mjs && wrangler deploy",
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
