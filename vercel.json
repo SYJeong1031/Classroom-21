@@ -3,5 +3,43 @@
   "framework": null,
   "installCommand": "",
   "buildCommand": "node server/prepare-assets.mjs",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "headers": [
+    {
+      "source": "/documents/%EC%A0%84%EC%A3%BC%EC%9A%A9%EC%86%8C%EC%A4%91%ED%95%99%EA%B5%90%202%ED%95%99%EB%85%84%201%EB%B0%98%20%ED%95%99%EA%B8%89%20%EA%B7%9C%EC%A0%95%20%E3%81%AE%E3%82%88%E3%81%86%E3%82%84%E3%81%8F.pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"class-rules-summary.pdf\"; filename*=UTF-8''%EC%A0%84%EC%A3%BC%EC%9A%A9%EC%86%8C%EC%A4%91%ED%95%99%EA%B5%90%202%ED%95%99%EB%85%84%201%EB%B0%98%20%ED%95%99%EA%B8%89%20%EA%B7%9C%EC%A0%95%20%E3%81%AE%E3%82%88%E3%81%86%E3%82%84%E3%81%8F.pdf"
+        }
+      ]
+    },
+    {
+      "source": "/documents/전주용소중학교 2학년 1반 학급 규정 のようやく.pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"class-rules-summary.pdf\"; filename*=UTF-8''%EC%A0%84%EC%A3%BC%EC%9A%A9%EC%86%8C%EC%A4%91%ED%95%99%EA%B5%90%202%ED%95%99%EB%85%84%201%EB%B0%98%20%ED%95%99%EA%B8%89%20%EA%B7%9C%EC%A0%95%20%E3%81%AE%E3%82%88%E3%81%86%E3%82%84%E3%81%8F.pdf"
+        }
+      ]
+    },
+    {
+      "source": "/documents/%EC%A0%84%EC%A3%BC%EC%9A%A9%EC%86%8C%EC%A4%91%ED%95%99%EA%B5%90%202%ED%95%99%EB%85%84%201%EB%B0%98%20%ED%95%99%EA%B8%89%20%EA%B7%9C%EC%A0%95.pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"class-rules.pdf\"; filename*=UTF-8''%EC%A0%84%EC%A3%BC%EC%9A%A9%EC%86%8C%EC%A4%91%ED%95%99%EA%B5%90%202%ED%95%99%EB%85%84%201%EB%B0%98%20%ED%95%99%EA%B8%89%20%EA%B7%9C%EC%A0%95.pdf"
+        }
+      ]
+    },
+    {
+      "source": "/documents/전주용소중학교 2학년 1반 학급 규정.pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"class-rules.pdf\"; filename*=UTF-8''%EC%A0%84%EC%A3%BC%EC%9A%A9%EC%86%8C%EC%A4%91%ED%95%99%EA%B5%90%202%ED%95%99%EB%85%84%201%EB%B0%98%20%ED%95%99%EA%B8%89%20%EA%B7%9C%EC%A0%95.pdf"
+        }
+      ]
+    }
+  ]
 }
