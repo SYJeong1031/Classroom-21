@@ -9,7 +9,9 @@ for (const match of readFileSync(resolve(root,'rules.html'),'utf8').matchAll(/hr
   if (!target.startsWith('documents/') || !existsSync(resolve(root,target))) throw new Error('PDF 링크와 파일명이 다릅니다: '+target);
 }
 mkdirSync(resolve(root,'public'),{recursive:true});
-for (const file of ['index.html','style.css','app.js','config.js','favicon.svg','rules.html','rules.css']) copyFileSync(resolve(root,file),resolve(root,'public',file));
+for (const file of ['index.html','style.css','app.js','config.js','favicon.svg','rules.html','rules.css','theme.js','theme.css']) copyFileSync(resolve(root,file),resolve(root,'public',file));
+mkdirSync(resolve(root,'public/assets'),{recursive:true});
+for (const file of ['chiikawa-background.png','chiikawa-characters.png']) copyFileSync(resolve(root,'assets',file),resolve(root,'public/assets',file));
 // 빌드 산출물만 재생성하여 이전 파일명의 PDF가 남지 않도록 합니다.
 rmSync(resolve(root,'public/documents'),{recursive:true,force:true});
 mkdirSync(resolve(root,'public/documents'),{recursive:true});

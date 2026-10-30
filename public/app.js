@@ -28,7 +28,7 @@ function escapeText(value) {
 function list() {
   const query = document.querySelector('#search').value.trim();
   const found = students.filter(s => s.name.includes(query) || s.id.includes(query));
-  document.querySelector('#students').innerHTML = found.map(s => `<button class="student" data-id="${s.id}"><span class="avatar">${String(s.no).padStart(2,'0')}</span><span><strong>${s.name}</strong><small>${s.id} · 2학년 1반</small></span><span class="arrow">↗</span></button>`).join('');
+  document.querySelector('#students').innerHTML = found.map(s => `<button class="student" data-id="${s.id}"><span class="avatar" aria-hidden="true"><span class="avatar-number">${String(s.no).padStart(2,'0')}</span><span class="avatar-character" data-character="${(s.no-1)%3}"></span></span><span><strong>${s.name}</strong><small>${s.id} · 2학년 1반</small></span><span class="arrow">↗</span></button>`).join('');
   document.querySelector('#empty').hidden = found.length > 0;
 }
 function open() { if (!modal.open) modal.showModal(); }
